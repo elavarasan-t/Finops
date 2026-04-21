@@ -6,6 +6,8 @@ from .ResourceManagement import resource, resourceGroup, resourceGroups, resourc
 
 from .CostManagement import cost, costUsage, costUsageDaily, costUsageV2, costV2, foreCastCost, individualResourceCost, individualResourceGroupCost, individualResourceUsage, individualSubscriptionCost, resourceGroupsCost, resourcesCost, subscriptionsCost, usageQuantity
 
+from .Tenent import tenent
+
 router = APIRouter(dependencies=[Depends(validateAPIKEY.validate_api_key)])
 
 router.include_router(subscriptions.router, prefix='/v1/azure')
@@ -32,3 +34,5 @@ router.include_router(individualResourceUsage.router, prefix='/v1/azure')
 router.include_router(costUsage.router, prefix='/v1/azure')
 router.include_router(costUsageV2.router, prefix='/v2/azure')
 router.include_router(costUsageDaily.router, prefix='/v1/azure')
+
+router.include_router(tenent.router, prefix='/v1/azure')
