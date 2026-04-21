@@ -1,0 +1,36 @@
+from fastapi import APIRouter, Request, Response
+from fastapi.concurrency import run_in_threadpool
+from fastapi.responses import JSONResponse
+from utils import authenticate
+from src.schema import CostRequest
+from utils import limiter
+from src.controller import get_individual_resource_cost
+
+router = APIRouter(tags=["Azure/CostManagement/Cost"])
+
+@router.post('/individualResourceCost')
+@limiter.limit("50/minute")
+async def individualResourceCost(Data: CostRequest, request: Request, response: Response):
+    try:
+        credential = authenticate()
+        
+        cost_response = await run_in_threadpool(
+            get_individual_resource_cost, 
+            Data.scope, 
+            credential,
+            Data.grouping,
+            Data.cost_type,
+            Data.start_date,
+            Data.end_date,
+            Data.granularity
+        )
+
+        return cost_response
+    
+    except Exception as error:
+        return JSONResponse(
+            status_code=500,
+            content={"detail": str(error)},
+            headers=dict(response.headers)
+        )
+        

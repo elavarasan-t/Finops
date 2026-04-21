@@ -1,0 +1,34 @@
+from fastapi import APIRouter, Depends
+
+from dependency import validateAPIKEY
+
+from .ResourceManagement import resource, resourceGroup, resourceGroups, resources, subscription, subscriptionResources, subscriptions
+
+from .CostManagement import cost, costUsage, costUsageDaily, costUsageV2, costV2, foreCastCost, individualResourceCost, individualResourceGroupCost, individualResourceUsage, individualSubscriptionCost, resourceGroupsCost, resourcesCost, subscriptionsCost, usageQuantity
+
+router = APIRouter(dependencies=[Depends(validateAPIKEY.validate_api_key)])
+
+router.include_router(subscriptions.router, prefix='/v1/azure')
+router.include_router(subscription.router, prefix='/v1/azure')
+router.include_router(subscriptionResources.router, prefix='/v1/azure')
+router.include_router(resourceGroup.router, prefix='/v1/azure')
+router.include_router(resourceGroups.router, prefix='/v1/azure')
+router.include_router(resources.router, prefix='/v1/azure')
+router.include_router(resource.router, prefix='/v1/azure')
+
+router.include_router(cost.router, prefix='/v1/azure')
+router.include_router(costV2.router, prefix='/v2/azure')
+router.include_router(foreCastCost.router, prefix='/v1/azure')
+router.include_router(usageQuantity.router, prefix='/v1/azure')
+#router.include_router(subscriptionsCost.router, prefix='/v1/azure')
+
+router.include_router(individualSubscriptionCost.router, prefix='/v1/azure')
+router.include_router(resourceGroupsCost.router, prefix='/v1/azure')
+router.include_router(individualResourceGroupCost.router, prefix='/v1/azure')
+router.include_router(resourcesCost.router, prefix='/v1/azure')
+router.include_router(individualResourceCost.router, prefix='/v1/azure')
+router.include_router(individualResourceUsage.router, prefix='/v1/azure')
+
+router.include_router(costUsage.router, prefix='/v1/azure')
+router.include_router(costUsageV2.router, prefix='/v2/azure')
+router.include_router(costUsageDaily.router, prefix='/v1/azure')
