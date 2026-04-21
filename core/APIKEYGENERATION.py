@@ -6,7 +6,7 @@ def generate_api_key():
 
     api_key = secrets.token_hex(32)
 
-    api_key_exp = datetime.now(timezone.utc) + timedelta(days=180)
+    api_key_exp = datetime.now(timezone.utc) + timedelta(days=180) #expire in 180 days
     api_key_exp_str = api_key_exp.isoformat()
 
     env_path = Path(__file__).resolve().parent.parent / ".env"
