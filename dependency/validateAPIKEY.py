@@ -8,7 +8,7 @@ load_dotenv()
 
 API_KEY_NAME = "X-API-KEY"
 API_KEY = os.getenv("API_KEY")
-EXPIRY_TIME = "2026-09-28T06:25:22.417730+00:00"
+EXPIRY_TIME = os.getenv("API_KEY_EXP")
 
 API_KEY_HEADER = APIKeyHeader(name=API_KEY_NAME,auto_error=False)
 

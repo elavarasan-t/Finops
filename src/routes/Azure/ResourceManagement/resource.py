@@ -15,7 +15,7 @@ async def resource(Data: ResourceIdRequest, request: Request, response: Response
         credentials = authenticate()
         response = await run_in_threadpool(get_azure_ressource, credentials, Data.resource_id)
         
-        return { "response": response }\
+        return { "response": response }
         
     except Exception as error:
         return JSONResponse(
