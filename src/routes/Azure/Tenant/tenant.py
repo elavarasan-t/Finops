@@ -5,9 +5,9 @@ from utils import authenticate
 from utils import limiter
 from src.controller import get_tenent_data
 
-router = APIRouter(tags=["Azure/Tenent"])
+router = APIRouter(tags=["Azure/Tenant"])
 
-@router.get('/tenent')
+@router.get('/tenant')
 @limiter.limit("50/minute")
 async def tenent_details(request: Request, response: Response):
     try:
