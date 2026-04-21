@@ -20,4 +20,4 @@ from .Azure.CostManagement.resourcesCostController import get_resources_cost
 from .Azure.CostManagement.usageQuantityController import get_usage
 from .Azure.CostManagement.individualResourceUsageController import get_individual_resource_usage
 from .Azure.CostManagement.subscriptionsCostController import get_subscriptions_cost
-from .Azure.tenentController import get_tenent_data
+from .Azure.tenantController import get_tenent_data
