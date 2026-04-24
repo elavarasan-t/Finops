@@ -5,7 +5,7 @@ from azure.mgmt.costmanagement.models import (
 )
 from datetime import timezone, datetime
 
-class AzureForecastCost:
+class AzureForeCastCost:
     def __init__(self, scope, credential, grouping, from_date, to_date, granularity, aggregation_cost, filtering=None):
         self.scope = scope
         self.credential = credential

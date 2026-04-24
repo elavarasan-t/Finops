@@ -1,11 +1,11 @@
-from utils import foreCastCost
+from utils import AzureForeCastCost
 from utils import DataSetMethods
 
 def get_azure_forecast_cost(scope, credential, grouping, start_date, end_date, granularity):
 
     request = {}
     
-    forecast_inr = foreCastCost(
+    azuzre_forecast_inr = AzureForeCastCost(
                 scope=scope,
                 credential=credential,
                 grouping=DataSetMethods.grouping(grouping_term=grouping),
@@ -15,9 +15,11 @@ def get_azure_forecast_cost(scope, credential, grouping, start_date, end_date, g
                 granularity=granularity
             )
     
+    forecast_inr = azuzre_forecast_inr.foreCastCost()
+
     forecast_cost = sum(row[0] for row in forecast_inr["row"])
 
-    forecast_usd = foreCastCost(
+    azure_forecast_usd = AzureForeCastCost(
                 scope=scope,
                 credential=credential,
                 grouping=DataSetMethods.grouping(grouping_term=grouping),
@@ -26,6 +28,8 @@ def get_azure_forecast_cost(scope, credential, grouping, start_date, end_date, g
                 to_date=end_date,
                 granularity=granularity
             )
+    
+    forecast_usd = azure_forecast_usd.foreCastCost()
     
     forecast_cost_usd = sum(row[0] for row in forecast_usd["row"])
 

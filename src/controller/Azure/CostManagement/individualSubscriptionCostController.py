@@ -1,11 +1,11 @@
-from utils import costManagement
+from utils import AzureCostManagement
 from utils import DataSetMethods
 
 def get_subscription_cost(scope, credential, grouping, cost_type, start_date, end_date, granularity):
     
     request = {}
 
-    cost = costManagement(
+    azure_cost = AzureCostManagement(
                 scope=scope,
                 credential=credential,
                 grouping=DataSetMethods.grouping(grouping_term=grouping),
@@ -14,6 +14,8 @@ def get_subscription_cost(scope, credential, grouping, cost_type, start_date, en
                 to_date=end_date,
                 granularity=granularity
             )
+    
+    cost = azure_cost.costManagement()
     
     total_cost_inr = sum(row[0] for row in cost["row"])
     total_cost_usd = sum(row[1] for row in cost["row"])

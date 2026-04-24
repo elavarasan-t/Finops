@@ -1,9 +1,9 @@
-from utils import costUsage
+from utils import AzureCostUsage
 from utils import DataSetMethods
 
 def get_azure_cost_usage_v2(scope, credential, grouping, cost_type, start_date, end_date, granularity):
 
-    cost_usage = costUsage(
+    azure_cost_usage = AzureCostUsage(
                 scope=scope,
                 credential=credential,
                 grouping=DataSetMethods.grouping(grouping_term=grouping),
@@ -12,6 +12,8 @@ def get_azure_cost_usage_v2(scope, credential, grouping, cost_type, start_date, 
                 to_date=end_date,
                 granularity=granularity
             )
+    
+    cost_usage = azure_cost_usage.costUsage()
     
     subscription_id = scope.split('/')[2]
 

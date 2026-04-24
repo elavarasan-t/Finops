@@ -22,7 +22,6 @@ router.include_router(cost.router, prefix='/v1/azure')
 router.include_router(costV2.router, prefix='/v2/azure')
 router.include_router(foreCastCost.router, prefix='/v1/azure')
 router.include_router(usageQuantity.router, prefix='/v1/azure')
-#router.include_router(subscriptionsCost.router, prefix='/v1/azure')
 
 router.include_router(individualSubscriptionCost.router, prefix='/v1/azure')
 router.include_router(resourceGroupsCost.router, prefix='/v1/azure')

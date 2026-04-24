@@ -1,10 +1,10 @@
-from utils import costManagement
+from utils import AzureCostManagement
 from utils import DataSetMethods
 
 def get_resources_cost(scope, credential, cost_type, start_date, end_date, granularity):
     request = {}
 
-    cost = costManagement(
+    azure_cost = AzureCostManagement(
                 scope=scope,
                 credential=credential,
                 grouping=DataSetMethods.grouping(grouping_term="ResourceId"),
@@ -14,6 +14,8 @@ def get_resources_cost(scope, credential, cost_type, start_date, end_date, granu
                 granularity=granularity
             )
     
+    cost = azure_cost.costManagement()
+
     resource_cost = sum(row[0] for row in cost["row"])
     resource_cost_usd = sum(row[1] for row in cost["row"])
 

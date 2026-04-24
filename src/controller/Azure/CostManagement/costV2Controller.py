@@ -1,9 +1,9 @@
-from utils import costManagement
+from utils import AzureCostManagement
 from utils import DataSetMethods
 
 def get_azure_cost_v2(scope, credential, cost_type, start_date, end_date, granularity):
 
-    cost = costManagement(
+    azure_cost = AzureCostManagement(
                 scope=scope,
                 credential=credential,
                 grouping=DataSetMethods.grouping(grouping_term="SubscriptionCost"),
@@ -12,6 +12,8 @@ def get_azure_cost_v2(scope, credential, cost_type, start_date, end_date, granul
                 to_date=end_date,
                 granularity=granularity
             )
+
+    cost = azure_cost.costManagement()
 
     subscription_id = scope.split('/')[2]
     columns = cost.get("column",[])
