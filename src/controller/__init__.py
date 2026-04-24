@@ -11,12 +11,15 @@ from .Azure.CostManagement.costV2Controller import get_azure_cost_v2
 from .Azure.CostManagement.costUsageController import get_azure_cost_usage
 from .Azure.CostManagement.costUsageV2Controller import get_azure_cost_usage_v2
 from .Azure.CostManagement.costUsageDailyController import get_azure_cost_usage_daily
+from .Azure.CostManagement.costUsageMonthlyController import get_azure_cost_usage_monthly
 from .Azure.CostManagement.foreCastCostController import get_azure_forecast_cost
 from .Azure.CostManagement.individualResourceCostController import get_individual_resource_cost
 from .Azure.CostManagement.individualResourceGroupCostController import get_resource_group_cost
 from .Azure.CostManagement.individualSubscriptionCostController import get_subscription_cost
 from .Azure.CostManagement.resourceGroupsCostController import get_resources_groups_cost
 from .Azure.CostManagement.resourcesCostController import get_resources_cost
+
 from .Azure.CostManagement.usageQuantityController import get_usage
 from .Azure.CostManagement.individualResourceUsageController import get_individual_resource_usage
+
 from .Azure.tenantController import get_tenent_data

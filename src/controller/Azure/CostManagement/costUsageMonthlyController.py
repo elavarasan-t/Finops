@@ -1,7 +1,7 @@
 from utils import AzureCostUsage
 from utils import DataSetMethods
 
-def get_azure_cost_usage_daily(scope, credential, grouping, cost_type, start_date, end_date, granularity):
+def get_azure_cost_usage_monthly(scope, credential, grouping, cost_type, start_date, end_date, granularity):
 
     azure_cost_usage = AzureCostUsage(
                 scope=scope,
@@ -10,7 +10,7 @@ def get_azure_cost_usage_daily(scope, credential, grouping, cost_type, start_dat
                 cost_type=cost_type,
                 from_date=start_date,
                 to_date=end_date,
-                granularity="DAILY"
+                granularity="MONTHLY"
             )
     
     cost_usage = azure_cost_usage.costUsage()
@@ -22,7 +22,7 @@ def get_azure_cost_usage_daily(scope, credential, grouping, cost_type, start_dat
     id_pretaxcost = columns.index("PreTaxCost")
     id_pretaxcost_usd = columns.index("PreTaxCostUSD")
     id_usage_quantity = columns.index("UsageQuantity")
-    id_usage_date = columns.index("UsageDate")
+    id_billing_month = columns.index("BillingMonth")
     id_resource_location = columns.index("ResourceLocation")
     id_rg = columns.index("ResourceGroupName")
     id_res = columns.index("ResourceId")
@@ -52,7 +52,7 @@ def get_azure_cost_usage_daily(scope, credential, grouping, cost_type, start_dat
         pretaxcost = row[id_pretaxcost]
         pretaxcost_usd = row[id_pretaxcost_usd]
         usage_quantity = row[id_usage_quantity]
-        usage_date = row[id_usage_date]
+        billing_month = row[id_billing_month]
         resource_location = row[id_resource_location]
         resource_group = row[id_rg] or f"unknown-rg"
         resource_id = row[id_res] or f"unknown-resource"
@@ -75,9 +75,9 @@ def get_azure_cost_usage_daily(scope, credential, grouping, cost_type, start_dat
         response[subscription_id][resource_group]["resources"].append({
             "pretaxcost" : pretaxcost,
             "currency": currency,
-            "pretaxcost_USD": pretaxcost_usd,
+            "pretaxcostUSD": pretaxcost_usd,
             "usageQuantity": usage_quantity,
-            "usageDate": usage_date,
+            "billingMonth": billing_month,
             "resourceLocation": resource_location,
             "resourceId": resource_id,
             "serviceFamily": service_family,

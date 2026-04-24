@@ -4,7 +4,7 @@ from dependency import validateAPIKEY
 
 from .ResourceManagement import resource, resourceGroup, resourceGroups, resources, subscription, subscriptionResources, subscriptions
 
-from .CostManagement import cost, costUsage, costUsageDaily, costUsageV2, costV2, foreCastCost, individualResourceCost, individualResourceGroupCost, individualResourceUsage, individualSubscriptionCost, resourceGroupsCost, resourcesCost, usageQuantity
+from .CostManagement import cost, costUsage, costUsageDaily, costUsageMonthly , costUsageV2, costV2, foreCastCost, individualResourceCost, individualResourceGroupCost, individualResourceUsage, individualSubscriptionCost, resourceGroupsCost, resourcesCost, usageQuantity
 
 from .Tenant import tenant
 
@@ -33,5 +33,6 @@ router.include_router(individualResourceUsage.router, prefix='/v1/azure')
 router.include_router(costUsage.router, prefix='/v1/azure')
 router.include_router(costUsageV2.router, prefix='/v2/azure')
 router.include_router(costUsageDaily.router, prefix='/v1/azure')
+router.include_router(costUsageMonthly.router, prefix='/v1/azure')
 
 router.include_router(tenant.router, prefix='/v1/azure')
