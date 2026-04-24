@@ -4,7 +4,7 @@ from dependency import validateAPIKEY
 
 from .ResourceManagement import resource, resourceGroup, resourceGroups, resources, subscription, subscriptionResources, subscriptions
 
-from .CostManagement import cost, costUsage, costUsageDaily, costUsageV2, costV2, foreCastCost, individualResourceCost, individualResourceGroupCost, individualResourceUsage, individualSubscriptionCost, resourceGroupsCost, resourcesCost, subscriptionsCost, usageQuantity
+from .CostManagement import cost, costUsage, costUsageDaily, costUsageV2, costV2, foreCastCost, individualResourceCost, individualResourceGroupCost, individualResourceUsage, individualSubscriptionCost, resourceGroupsCost, resourcesCost, usageQuantity
 
 from .Tenant import tenant
 
