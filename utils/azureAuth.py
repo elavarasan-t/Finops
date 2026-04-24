@@ -1,8 +1,15 @@
+import os
+from dotenv import load_dotenv
 from azure.identity import ClientSecretCredential
+from .aesDecryption import DecryptAES
 from fastapi import HTTPException
 from src.schema import Credentials
 
 class AzureAuth:
+
+    load_dotenv()
+
+    DECRYPT_KEY = os.getenv("AES_KEY")
 
     def __init__(self, Credential: Credentials):
         self.tenant_id = Credential.azure_tenant_id
@@ -10,8 +17,13 @@ class AzureAuth:
         self.client_secret = Credential.azure_client_secret
 
     def authenticate(self):
+
         try:
-            credential = ClientSecretCredential(tenant_id=self.tenant_id, client_id=self.client_id, client_secret=self.client_secret)
+            azure_tenant = DecryptAES(self.tenant_id, self.DECRYPT_KEY).decrypt_aes()
+            azure_client_id = DecryptAES(self.client_id, self.DECRYPT_KEY).decrypt_aes()
+            azure_client_secret = DecryptAES(self.client_secret, self.DECRYPT_KEY).decrypt_aes()
+
+            credential = ClientSecretCredential(tenant_id=azure_tenant, client_id=azure_client_id, client_secret=azure_client_secret)
             return credential 
     
         except Exception as error:

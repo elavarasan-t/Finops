@@ -1,8 +1,8 @@
 # modules/__init__.py
-from .costManagement import costManagement
 from .DataSetMethods import DataSetMethods
-from .usageQuantity import usageQuantity
-from .forecastCost import foreCastCost
+from .azureUsageQuantity import AzureUsageQuantity
+from .azureForeCastCost import AzureForecastCost
 from .limiter import limiter
-from .costUsage import costUsage
+from .azureCostUsage import AzureCostUsage
 from .azureAuth import AzureAuth
+from .azureCostManagement import AzureCostManagement
