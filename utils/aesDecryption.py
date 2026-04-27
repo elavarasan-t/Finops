@@ -26,4 +26,10 @@ class DecryptAES:
             return decrypted.decode() 
         
         except Exception as error:
-            raise HTTPException(status_code=500,detail=f"{error}") 
+            raise HTTPException(
+                status_code=401,
+                detail={
+                    "success":False,
+                    "message":"Decryption Error",
+                    "status_code": 401
+            }) 

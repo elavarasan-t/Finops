@@ -14,7 +14,7 @@ async def individualResourceGroupCost(Credential: Credentials, Data: CostRequest
     try:
             azure_auth = AzureAuth(Credential=Credential)
             credentials = azure_auth.authenticate()
-            
+            data = []
             cost_response = await run_in_threadpool(
                 get_resource_group_cost,
                 Data.scope, 
@@ -26,7 +26,12 @@ async def individualResourceGroupCost(Credential: Credentials, Data: CostRequest
                 Data.granularity
             )
             
-            return { "response": cost_response }
+            return {
+            "success": True, 
+            "status_code": 200,
+            "data": data.append(cost_response),
+            "errors": None
+        }
                 
     except Exception as error:
         return JSONResponse(

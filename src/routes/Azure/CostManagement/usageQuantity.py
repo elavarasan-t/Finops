@@ -14,7 +14,7 @@ async def usage(Credential: Credentials, Data: CostRequest, request: Request, re
     try:
         azure_auth = AzureAuth(Credential=Credential)
         credentials = azure_auth.authenticate()
-        
+        data = []
         usage_response = await run_in_threadpool(
             get_usage,
             Data.scope,
@@ -25,7 +25,12 @@ async def usage(Credential: Credentials, Data: CostRequest, request: Request, re
             Data.granularity
         )
 
-        return { "response": usage_response }
+        return {
+            "success": True, 
+            "status_code": 200,
+            "data": data.append(usage_response),
+            "errors": None
+        }
     
     except Exception as error:
         return JSONResponse(

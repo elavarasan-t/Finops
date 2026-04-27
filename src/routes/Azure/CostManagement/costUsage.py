@@ -16,7 +16,7 @@ async def cost(Credential: Credentials, Data: CostRequest, request: Request, res
     try:
         azure_auth = AzureAuth(Credential=Credential)
         credentials = azure_auth.authenticate()
-        
+        data = []
         cost_response = await run_in_threadpool(
             get_azure_cost_usage, 
             Data.scope, 
@@ -28,7 +28,16 @@ async def cost(Credential: Credentials, Data: CostRequest, request: Request, res
             Data.granularity 
         )
 
-        return { f"{Data.scope.split('/')[2]}": cost_response }
+        data.append({
+           f"{Data.scope.split('/')[2]}": cost_response 
+        })
+
+        return {
+            "success": True, 
+            "status_code": 200,
+            "data": data,
+            "errors": None
+        }
     
     except Exception as error:
         return JSONResponse(

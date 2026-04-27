@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 
 load_dotenv()
 
-API_KEY_NAME = "X-API-KEY"
+API_KEY_NAME = "API-KEY"
 API_KEY = os.getenv("API_KEY")
 EXPIRY_TIME = os.getenv("API_KEY_EXP")
 
@@ -20,9 +20,20 @@ async def validate_api_key(api_key: str = Security(API_KEY_HEADER)):
 
     if api_key != API_KEY:
         raise HTTPException(
-            status_code=400,
-            detail="Invalid API KEY"
+            status_code=401,
+            detail={
+                "success": False,
+                "message": "Invalid API KEY",
+                "status_code": 401
+            }
         )
     
     if now > expiry_at:
-        raise HTTPException(status_code=403, detail="API Key Expired")
+        raise HTTPException(
+            status_code=401, 
+            detail={
+                "success": False,
+                "message": "API KEY EXPIRED",
+                "status_code": 401
+            }
+        )

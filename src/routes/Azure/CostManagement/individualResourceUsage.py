@@ -14,7 +14,7 @@ async def individualResourceUsage(Credential: Credentials, Data: CostRequest, re
     try:
         azure_auth = AzureAuth(Credential=Credential)
         credentials = azure_auth.authenticate()
-        
+        data = []
         usage_response = await run_in_threadpool(
             get_individual_resource_usage, 
             Data.scope, 
@@ -24,8 +24,13 @@ async def individualResourceUsage(Credential: Credentials, Data: CostRequest, re
             Data.end_date,
             Data.granularity
         )
-
-        return usage_response
+        
+        return {
+            "success": True, 
+            "status_code": 200,
+            "data": data.append(usage_response),
+            "errors": None
+        }
     
     except Exception as error:
         return JSONResponse(

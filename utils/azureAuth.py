@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from azure.identity import ClientSecretCredential
 from .aesDecryption import DecryptAES
 from fastapi import HTTPException
+from fastapi.responses import JSONResponse
 from src.schema import Credentials
 
 class AzureAuth:
@@ -24,8 +25,15 @@ class AzureAuth:
             azure_client_secret = DecryptAES(self.client_secret, self.DECRYPT_KEY).decrypt_aes()
 
             credential = ClientSecretCredential(tenant_id=azure_tenant, client_id=azure_client_id, client_secret=azure_client_secret)
+
             return credential 
     
         except Exception as error:
-            raise HTTPException(status_code=500,detail=f"Authentication Failed : {error} ")
-
+            raise HTTPException(
+                status_code=401,
+                detail={
+                    "success":False,
+                    "message":"Invalid Credential",
+                    "status_code": 401
+                }
+            )

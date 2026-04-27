@@ -22,13 +22,21 @@ async def list_subscriptions(
         response_body = await run_in_threadpool(get_azure_subscriptions, credentials)
 
         return {
-            "response" : response_body
+            "success": True, 
+            "status_code": 200,
+            "data": response_body,
+            "errors": None 
         }
     
     except Exception as error:
         return JSONResponse(
             status_code=500,
-            content={"detail": str(error)},
+            content={
+                "success": False,
+                "status_code": 500,
+                "data": [],
+                "error" : str(error)
+                },
             headers=dict(response.headers)
         )
     

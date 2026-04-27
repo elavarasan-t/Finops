@@ -14,13 +14,22 @@ async def resource_group(Credential: Credentials, Data: ResourceGroupIdRequest, 
     try:
         azure_auth = AzureAuth(Credential=Credential)
         credentials = azure_auth.authenticate()
-        response = await run_in_threadpool(get_azure_resource_group, credentials, Data.resource_group_id)
+        response_body = [await run_in_threadpool(get_azure_resource_group, credentials, Data.resource_group_id)]
         
-        return { "response": response }
+        return { 
+            "success": True, 
+            "status_code": 200,
+            "data": response_body,
+            "errors": None
+         }
     
     except Exception as error:
         return JSONResponse(
-            status_code=500,
-            content={"detail": str(error)},
+            status_code=404,
+            detail={
+                "success": False,
+                "status_code": 404,
+                "data": [],
+            },
             headers=dict(response.headers)
         )

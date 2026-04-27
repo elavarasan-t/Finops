@@ -26,7 +26,7 @@ async def individualResourceCost(Credential: Credentials, Data: CostRequest, req
             Data.granularity
         )
 
-        return cost_response
+        forecast_response
     
     except Exception as error:
         return JSONResponse(

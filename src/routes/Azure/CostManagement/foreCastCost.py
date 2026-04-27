@@ -15,7 +15,7 @@ async def forecastcost(Credential: Credentials, Data: CostRequest, request: Requ
     try:
         azure_auth = AzureAuth(Credential=Credential)
         credentials = azure_auth.authenticate()
-        
+        data = []
         forecast_response = await run_in_threadpool(
             get_azure_forecast_cost, 
             Data.scope, 
@@ -25,8 +25,13 @@ async def forecastcost(Credential: Credentials, Data: CostRequest, request: Requ
             Data.end_date,
             Data.granularity,
         )
-
-        return { "response": forecast_response }
+    
+        return {
+            "success": True, 
+            "status_code": 200,
+            "data": data.append(forecast_response),
+            "errors": None
+        }
     
     except Exception as error:
         return JSONResponse(
