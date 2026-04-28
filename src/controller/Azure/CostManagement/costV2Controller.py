@@ -34,13 +34,13 @@ def get_azure_cost_v2(scope, credential, cost_type, start_date, end_date, granul
     id_charge_type = columns.index("ChargeType")
     id_currency = columns.index("Currency")
 
-    total_cost = sum(row[id_pretaxcost] for row in cost.get("row", []))
-    total_cost_usd = sum(row[id_pretaxcost_usd] for row in cost.get("row", []))
+    #total_cost = sum(row[id_pretaxcost] for row in cost.get("row", []))
+    #total_cost_usd = sum(row[id_pretaxcost_usd] for row in cost.get("row", []))
 
     response = {
         subscription_id : {
-            "subscription_total_cost" : round(total_cost, 2),
-            "subscription_total_cost_USD" : round(total_cost_usd, 2) 
+            #"subscription_total_cost" : round(total_cost, 2),
+            #"subscription_total_cost_USD" : round(total_cost_usd, 2) 
         }
     }
     
@@ -64,13 +64,13 @@ def get_azure_cost_v2(scope, credential, cost_type, start_date, end_date, granul
 
         if resource_group not in response[subscription_id]:
             response[subscription_id][resource_group] = {
-                    "resourcegroup_total_cost": 0,
-                    "resourcegroup_total_cost_usd": 0,
+                    #"resourcegroup_total_cost": 0,
+                    #"resourcegroup_total_cost_usd": 0,
                     "resources": []
                     }
             
-        response[subscription_id][resource_group]["resourcegroup_total_cost"] += pretaxcost
-        response[subscription_id][resource_group]["resourcegroup_total_cost_usd"] += pretaxcost_usd
+        #response[subscription_id][resource_group]["resourcegroup_total_cost"] += pretaxcost
+        #response[subscription_id][resource_group]["resourcegroup_total_cost_usd"] += pretaxcost_usd
             
         response[subscription_id][resource_group]["resources"].append({
             "pretaxcost" : pretaxcost,

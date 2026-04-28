@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Response
+from fastapi import APIRouter, Request, Response, status, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.concurrency import run_in_threadpool
 from utils import AzureAuth
@@ -11,6 +11,7 @@ router = APIRouter(tags=["Azure/CostManagement/Cost"])
 @router.post('/cost')
 @limiter.limit("50/minute")
 async def cost(Credential: Credentials, Data: CostRequest, request: Request, response: Response):
+    
     try:
         azure_auth = AzureAuth(Credential=Credential)
         credentials = azure_auth.authenticate()
@@ -32,10 +33,13 @@ async def cost(Credential: Credentials, Data: CostRequest, request: Request, res
 
         return {
             "success": True, 
-            "status_code": 200,
+            "status_code": status.HTTP_200_OK,
             "data": data,
             "errors": None
         }
+    
+    except HTTPException as exc:
+        raise exc
     
     except Exception as error:
         return JSONResponse(

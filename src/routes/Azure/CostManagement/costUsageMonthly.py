@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Response
+from fastapi import APIRouter, Request, Response, status, HTTPException
 from fastapi.responses import JSONResponse
 from fastapi.concurrency import run_in_threadpool
 from utils import AzureAuth
@@ -26,12 +26,17 @@ async def cost(Credential: Credentials, Data: CostRequest, request: Request, res
             Data.granularity 
         )
 
+        data.append(cost_response)
+
         return {
             "success": True, 
-            "status_code": 200,
-            "data": data.append(cost_response),
+            "status_code": status.HTTP_200_OK,
+            "data": data,
             "errors": None
         }
+    
+    except HTTPException as exc:
+        raise exc
     
     except Exception as error:
         return JSONResponse(

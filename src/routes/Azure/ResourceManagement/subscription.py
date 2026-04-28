@@ -14,10 +14,11 @@ async def subscription_data(Credential: Credentials, Data: SubscriptionRequest, 
     try:
         azure_auth = AzureAuth(Credential=Credential)
         credentials = azure_auth.authenticate()
-        response_body = [await run_in_threadpool(get_azure_subscription, credentials, Data.subscription_id)]   
+        response_body = [await run_in_threadpool(get_azure_subscription, credentials, Data.subscription_id)]
+           
         return { 
             "success": True, 
-            "status_code": 200,
+            "status_code": status.HTTP_200_OK,
             "data": response_body,
             "errors": None
          }

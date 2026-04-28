@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Response
+from fastapi import APIRouter, Request, Response, HTTPException
 from fastapi.concurrency import run_in_threadpool
 from fastapi.responses import JSONResponse
 from utils import AzureAuth
@@ -14,7 +14,7 @@ async def individualResourceCost(Credential: Credentials, Data: CostRequest, req
     try:
         azure_auth = AzureAuth(Credential=Credential)
         credentials = azure_auth.authenticate()
-        
+        data = []
         cost_response = await run_in_threadpool(
             get_individual_resource_cost, 
             Data.scope, 
@@ -26,7 +26,17 @@ async def individualResourceCost(Credential: Credentials, Data: CostRequest, req
             Data.granularity
         )
 
-        forecast_response
+        data.append(cost_response)
+
+        return {
+            "success": True, 
+            "status_code": 200,
+            "data": data,
+            "errors": None
+        }
+    
+    except HTTPException as exc:
+        raise exc
     
     except Exception as error:
         return JSONResponse(

@@ -5,6 +5,10 @@
 5. pip install fastapi uvicorn
 6. fastapi deploy
 
+uvicorn main:app --host 0.0.0.0 --port 8080
+
+fastapi run main.py
+
 packages needs to be installed:
 
 1. pip install dotenv - accessing .env files

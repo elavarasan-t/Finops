@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request, Response
+from fastapi import APIRouter, Request, Response, HTTPException, status
 from fastapi.responses import JSONResponse
 from fastapi.concurrency import run_in_threadpool
 from src.schema import Credentials
@@ -23,17 +23,20 @@ async def list_subscriptions(
 
         return {
             "success": True, 
-            "status_code": 200,
+            "status_code": status.HTTP_200_OK,
             "data": response_body,
             "errors": None 
         }
     
+    except HTTPException as exc:
+        raise exc
+    
     except Exception as error:
         return JSONResponse(
-            status_code=500,
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             content={
                 "success": False,
-                "status_code": 500,
+                "status_code": status.HTTP_500_INTERNAL_SERVER_ERROR,
                 "data": [],
                 "error" : str(error)
                 },
