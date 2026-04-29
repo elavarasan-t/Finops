@@ -36,13 +36,13 @@ def get_azure_cost_usage_v2(scope, credential, grouping, cost_type, start_date, 
     id_charge_type = columns.index("ChargeType")
     id_currency = columns.index("Currency")
 
-    total_cost = sum(row[id_pretaxcost] for row in cost_usage.get("row", []))
-    total_cost_usd = sum(row[id_pretaxcost_usd] for row in cost_usage.get("row", []))
+    #total_cost = sum(row[id_pretaxcost] for row in cost_usage.get("row", []))
+    #total_cost_usd = sum(row[id_pretaxcost_usd] for row in cost_usage.get("row", []))
 
     response = {
         subscription_id : {
-            "subscription_total_cost" : round(total_cost, 2),
-            "subscription_total_cost_USD" : round(total_cost_usd, 2) 
+            #"subscription_total_cost" : round(total_cost, 2),
+            #"subscription_total_cost_USD" : round(total_cost_usd, 2) 
         }
     }
 

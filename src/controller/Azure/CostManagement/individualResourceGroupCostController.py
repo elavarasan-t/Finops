@@ -34,7 +34,6 @@ def get_resource_group_cost(scope, credential, grouping, cost_type, start_date, 
     id_charge_type = columns.index("ChargeType")
     id_currency = columns.index("Currency")
 
-
     response = {
         resource_group_name : []
     }
