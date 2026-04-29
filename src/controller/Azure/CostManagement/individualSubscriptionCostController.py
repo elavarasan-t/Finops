@@ -8,7 +8,7 @@ def get_subscription_cost(scope, credential, grouping, cost_type, start_date, en
     azure_cost = AzureCostManagement(
                 scope=scope,
                 credential=credential,
-                grouping=DataSetMethods.grouping(grouping_term=grouping),
+                grouping=DataSetMethods.grouping(grouping_term="None"),
                 cost_type=cost_type,
                 from_date=start_date,
                 to_date=end_date,

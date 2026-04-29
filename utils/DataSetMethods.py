@@ -142,6 +142,32 @@ class DataSetMethods:
                      QueryGrouping(type="Dimension", name="PricingModel"),
                      QueryGrouping(type="Dimension", name="ChargeType")
                     ]
+        
+        if grouping_term == "ResourceGroupCost":
+            return [QueryGrouping(type="Dimension", name="ResourceLocation"),
+                     QueryGrouping(type="Dimension", name="ServiceFamily"),
+                     QueryGrouping(type="Dimension", name="ServiceName"),
+                     QueryGrouping(type="Dimension", name="MeterCategory"),
+                     QueryGrouping(type="Dimension", name="MeterSubCategory"),
+                     QueryGrouping(type="Dimension", name="Meter"),
+                     QueryGrouping(type="Dimension", name="Product"),
+                     QueryGrouping(type="Dimension", name="UnitOfMeasure"),
+                     QueryGrouping(type="Dimension", name="PricingModel"),
+                     QueryGrouping(type="Dimension", name="ChargeType")
+                    ]
+        
+        if grouping_term == "ResourceCost":
+            return [QueryGrouping(type="Dimension", name="ResourceLocation"),
+                     QueryGrouping(type="Dimension", name="ServiceFamily"),
+                     QueryGrouping(type="Dimension", name="ServiceName"),
+                     QueryGrouping(type="Dimension", name="MeterCategory"),
+                     QueryGrouping(type="Dimension", name="MeterSubCategory"),
+                     QueryGrouping(type="Dimension", name="Meter"),
+                     QueryGrouping(type="Dimension", name="Product"),
+                     QueryGrouping(type="Dimension", name="UnitOfMeasure"),
+                     QueryGrouping(type="Dimension", name="PricingModel"),
+                     QueryGrouping(type="Dimension", name="ChargeType")
+                    ]
  
 
         #if grouping_term == "All":
